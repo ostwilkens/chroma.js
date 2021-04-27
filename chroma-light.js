@@ -1,22 +1,22 @@
 /**
  * chroma.js - JavaScript library for color conversions
- *
+ * 
  * Copyright (c) 2011-2019, Gregor Aisch
  * All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright notice, this
  * list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright notice,
  * this list of conditions and the following disclaimer in the documentation
  * and/or other materials provided with the distribution.
- *
+ * 
  * 3. The name Gregor Aisch may not be used to endorse or promote products
  * derived from this software without specific prior written permission.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -27,31 +27,31 @@
  * OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
+ * 
  * -------------------------------------------------------
- *
+ * 
  * chroma.js includes colors from colorbrewer2.org, which are released under
  * the following license:
- *
+ * 
  * Copyright (c) 2002 Cynthia Brewer, Mark Harrower,
  * and The Pennsylvania State University.
- *
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific
  * language governing permissions and limitations under the License.
- *
+ * 
  * ------------------------------------------------------
- *
+ * 
  * Named colors are taken from X11 Color Names.
  * http://www.w3.org/TR/css3-color/#svg-color
- *
+ * 
  * @preserve
  */
 
@@ -319,7 +319,6 @@
     var rgb2css_1 = rgb2css;
 
     var unpack$4 = utils.unpack;
-    var round$1 = Math.round;
 
     var hsl2rgb = function () {
         var assign;
@@ -354,7 +353,7 @@
                 else
                     { c[i] = t1; }
             }
-            (assign = [round$1(c[0]*255),round$1(c[1]*255),round$1(c[2]*255)], r = assign[0], g = assign[1], b = assign[2]);
+            (assign = [c[0]*255,c[1]*255,c[2]*255], r = assign[0], g = assign[1], b = assign[2]);
         }
         if (args.length > 3) {
             // keep alpha channel
@@ -372,7 +371,7 @@
     var RE_HSL = /^hsl\(\s*(-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?)%\s*,\s*(-?\d+(?:\.\d+)?)%\s*\)$/;
     var RE_HSLA = /^hsla\(\s*(-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?)%\s*,\s*(-?\d+(?:\.\d+)?)%\s*,\s*([01]|[01]?\.\d+)\)$/;
 
-    var round$2 = Math.round;
+    var round$1 = Math.round;
 
     var css2rgb = function (css) {
         css = css.toLowerCase().trim();
@@ -401,7 +400,7 @@
         if ((m = css.match(RE_RGB_PCT))) {
             var rgb$2 = m.slice(1,4);
             for (var i$2=0; i$2<3; i$2++) {
-                rgb$2[i$2] = round$2(rgb$2[i$2] * 2.55);
+                rgb$2[i$2] = round$1(rgb$2[i$2] * 2.55);
             }
             rgb$2[3] = 1;  // default alpha
             return rgb$2;
@@ -411,7 +410,7 @@
         if ((m = css.match(RE_RGBA_PCT))) {
             var rgb$3 = m.slice(1,5);
             for (var i$3=0; i$3<3; i$3++) {
-                rgb$3[i$3] = round$2(rgb$3[i$3] * 2.55);
+                rgb$3[i$3] = round$1(rgb$3[i$3] * 2.55);
             }
             rgb$3[3] = +rgb$3[3];
             return rgb$3;
@@ -481,7 +480,7 @@
 
     var unpack$5 = utils.unpack;
     var last$4 = utils.last;
-    var round$3 = Math.round;
+    var round$2 = Math.round;
 
     var rgb2hex = function () {
         var args = [], len = arguments.length;
@@ -497,13 +496,13 @@
         if (mode === 'auto') {
             mode = a < 1 ? 'rgba' : 'rgb';
         }
-        r = round$3(r);
-        g = round$3(g);
-        b = round$3(b);
+        r = round$2(r);
+        g = round$2(g);
+        b = round$2(b);
         var u = r << 16 | g << 8 | b;
         var str = "000000" + u.toString(16); //#.toUpperCase();
         str = str.substr(str.length - 6);
-        var hxa = '0' + round$3(a * 255).toString(16);
+        var hxa = '0' + round$2(a * 255).toString(16);
         hxa = hxa.substr(hxa.length - 2);
         switch (mode.toLowerCase()) {
             case 'rgba': return ("#" + str + hxa);
@@ -761,20 +760,20 @@
 
     var unpack$a = utils.unpack;
     var type$6 = utils.type;
-    var round$4 = Math.round;
+    var round$3 = Math.round;
 
     Color_1.prototype.rgb = function(rnd) {
         if ( rnd === void 0 ) rnd=true;
 
         if (rnd === false) { return this._rgb.slice(0,3); }
-        return this._rgb.slice(0,3).map(round$4);
+        return this._rgb.slice(0,3).map(round$3);
     };
 
     Color_1.prototype.rgba = function(rnd) {
         if ( rnd === void 0 ) rnd=true;
 
         return this._rgb.slice(0,4).map(function (v,i) {
-            return i<3 ? (rnd === false ? v : round$4(v)) : v;
+            return i<3 ? (rnd === false ? v : round$3(v)) : v;
         });
     };
 
